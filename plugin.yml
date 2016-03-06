@@ -1,0 +1,23 @@
+name: EvenziaManager
+author: TriiNoxYs
+version: 1.0
+main: fr.TriiNoxYs.EvenziaManager.EvenziaManager
+commands:
+  chat:
+    description: Activer ou desactiver le chat
+  clearchat:
+    description: Vider le chat
+  drop:
+    description: Activer ou desactiver le drop dans le monde actuel
+  pickup:
+    description: Activer ou desactiver le pickup dans le monde actuel
+  moveitem:
+    description: Activer ou desactiver le moveitem dans le monde actuel
+  spawn:
+    description: Se teleporter au spawn
+  setspawn:
+    description: Defenir le spawn
+  reloadconfig:
+    description: Recharger la config
+  ping:
+    description: Affiche votre ping ou celui d'un autre joueur
