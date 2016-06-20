@@ -1,18 +1,14 @@
-name: EvenziaManager
+name: DDHubs
 author: TriiNoxYs
 version: 1.0
-main: fr.TriiNoxYs.EvenziaManager.EvenziaManager
+main: fr.TriiNoxYs.DDHubs.Main
 commands:
   chat:
     description: Activer ou desactiver le chat
   clearchat:
     description: Vider le chat
-  drop:
-    description: Activer ou desactiver le drop dans le monde actuel
-  pickup:
-    description: Activer ou desactiver le pickup dans le monde actuel
-  moveitem:
-    description: Activer ou desactiver le moveitem dans le monde actuel
+  bypass:
+    description: Acceder au perms vanilla du serveur
   spawn:
     description: Se teleporter au spawn
   setspawn:
