@@ -100,8 +100,10 @@ public class Menus implements Listener{
     @EventHandler
     public void onInvClick(InventoryClickEvent e){
         final Player p = (Player) e.getWhoClicked();
-        Inventory inv  = e.getClickedInventory();
+        Inventory inv = e.getClickedInventory();
         ItemStack item = e.getCurrentItem();
+        
+        if(inv == null) return;
         
         if(Main.bypassed.contains(p)){
             if(!p.getGameMode().equals(GameMode.CREATIVE)){
@@ -110,6 +112,8 @@ public class Menus implements Listener{
             }
         }
         else e.setCancelled(true);
+        
+        Bukkit.broadcastMessage(inv.toString());
         
         if(inv.getName().equals("§8§lParamètres")){
             if(item.getType().equals(Material.INK_SACK) /*&& item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equals("§c§lJoueurs Affichés")*/){
