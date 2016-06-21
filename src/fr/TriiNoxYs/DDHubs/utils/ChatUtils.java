@@ -10,15 +10,15 @@ import fr.TriiNoxYs.DDHubs.Main;
 
 public class ChatUtils{
     
-    private static String prefix = "§8[§4§lDD§6Hubs§8]§r ";
+    private static final String PREFIX = "§8[§4§lDD§6Hubs§8]§r ";
     private static boolean muted = true;
 	
 	public static void broadcast(String msg){
-		Bukkit.broadcastMessage(prefix + msg);
+		Bukkit.broadcastMessage(PREFIX + msg);
 	}
 	
 	public static void sendMsg(Player player, String msg){
-		player.sendMessage(prefix + msg);
+		player.sendMessage(PREFIX + msg);
 	}
 	
 	public static void sendInfos(Player p){
