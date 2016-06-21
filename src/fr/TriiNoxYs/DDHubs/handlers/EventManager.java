@@ -5,7 +5,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import fr.TriiNoxYs.DDHubs.listeners.events.ChatEvent;
 import fr.TriiNoxYs.DDHubs.listeners.events.CommandPreprocessEvent;
-import fr.TriiNoxYs.DDHubs.listeners.events.FallEvent;
+import fr.TriiNoxYs.DDHubs.listeners.events.VoidDamageEvent;
 import fr.TriiNoxYs.DDHubs.listeners.events.JoinEvent;
 import fr.TriiNoxYs.DDHubs.listeners.events.Menus;
 import fr.TriiNoxYs.DDHubs.listeners.events.RespawnEvent;
@@ -23,7 +23,7 @@ public class EventManager{
        pm.registerEvents(new ChatEvent(), pl);
        pm.registerEvents(new RespawnEvent(), pl);
        pm.registerEvents(new WeatherEvent(), pl);
-       pm.registerEvents(new FallEvent(), pl);
+       pm.registerEvents(new VoidDamageEvent(), pl);
     }
     
 }
