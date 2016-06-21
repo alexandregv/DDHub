@@ -1,5 +1,6 @@
 package fr.TriiNoxYs.DDHubs.listeners.events;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent.ChatSerializer;
@@ -25,15 +26,19 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import fr.TriiNoxYs.DDHubs.Main;
+import fr.TriiNoxYs.DDHubs.utils.VisibilityUtils;
 
 
 public class Menus implements Listener{
     
-//    private static ArrayList<Player> masking = new ArrayList<Player>();
+    private static ArrayList<Player> masking = new ArrayList<Player>();
     
-    public static ItemStack head, gold, compass, sugar, sugarEnch, nametag;
+    public static ItemStack head, gold, compass, sugar, sugarEnch, nametag; //Hotbar
+    public static ItemStack maskON, maskOFF;                                //Params GUI
     
     public Menus(){
+        
+        //Hotbar
         head = new ItemStack(Material.SKULL_ITEM, 1, (short) SkullType.PLAYER.ordinal());
         SkullMeta headMeta = (SkullMeta) head.getItemMeta();
         headMeta.setLore(Arrays.asList("§7Consultez votre profil !"));
@@ -69,6 +74,19 @@ public class Menus implements Listener{
         nametagMeta.setDisplayName("§7§lParamètres");
         nametagMeta.setLore(Arrays.asList("§7Editez vos paramètres comme bon vous semble !"));
         nametag.setItemMeta(nametagMeta);
+        
+        //Params GUI
+        maskOFF = new ItemStack(Material.INK_SACK, 1);
+        ItemMeta masoOFFMeta = maskOFF.getItemMeta();
+        maskOFF.setDurability((short) 10);
+        masoOFFMeta.setDisplayName("§a§lJoueurs Affichés");
+        maskOFF.setItemMeta(masoOFFMeta);
+        
+        maskON = new ItemStack(Material.INK_SACK, 1);
+        ItemMeta maskONMeta = maskON.getItemMeta();
+        maskON.setDurability((short) 8);
+        maskONMeta.setDisplayName("§c§lJoueurs Masqués");
+        maskON.setItemMeta(maskONMeta);
     }
     
     private static void sendBypassError(Player p){
@@ -82,6 +100,8 @@ public class Menus implements Listener{
     @EventHandler
     public void onInvClick(InventoryClickEvent e){
         final Player p = (Player) e.getWhoClicked();
+        Inventory inv  = e.getClickedInventory();
+        ItemStack item = e.getCurrentItem();
         
         if(Main.bypassed.contains(p)){
             if(!p.getGameMode().equals(GameMode.CREATIVE)){
@@ -90,6 +110,23 @@ public class Menus implements Listener{
             }
         }
         else e.setCancelled(true);
+        
+        if(inv.getName().equals("§8§lParamètres")){
+            if(item.getType().equals(Material.INK_SACK) /*&& item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equals("§c§lJoueurs Affichés")*/){
+                if(masking.contains(p)){
+                    inv.setItem(0, maskOFF);
+                    masking.remove(p);
+                    VisibilityUtils.showPlayers(p);
+                    p.sendMessage("§aTous les joueurs sont maintenant §eaffichés§e.");
+                }
+                else{
+                    inv.setItem(0, maskON);
+                    masking.add(p);
+                    VisibilityUtils.maskPlayers(p);
+                    p.sendMessage("§aTous les joueurs sont maintenant §cmasqués§e.");
+                }
+            }
+        }
     }
     
     @EventHandler
@@ -145,7 +182,13 @@ public class Menus implements Listener{
         else if(item.getType() == Material.NAME_TAG){
             if(item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§7§lParamètres")){
                 e.setCancelled(true);
+                
                 Inventory invParams = Bukkit.createInventory(null, 9, "§8§lParamètres");
+                
+                if(masking.contains(p)) invParams.setItem(0, maskON);
+                else invParams.setItem(0, maskOFF);
+                
+                
                 p.openInventory(invParams);
             }
         }
@@ -158,7 +201,7 @@ public class Menus implements Listener{
 //                    ItemStack gray = new ItemStack(Material.INK_SACK, 1);
 //                    ItemMeta grayMeta = gray.getItemMeta();
 //                    gray.setDurability((short) 8);
-//                    grayMeta.setDisplayName("§c§lJoueurs Masqu§s");
+//                    grayMeta.setDisplayName("§c§lJoueurs Masqués");
 //                    gray.setItemMeta(grayMeta);
 //                    p.setItemInHand(gray);
 //                    p.updateInventory();
@@ -172,7 +215,7 @@ public class Menus implements Listener{
 //                    ItemStack green = new ItemStack(Material.INK_SACK, 1);
 //                    ItemMeta greenMeta = green.getItemMeta();
 //                    green.setDurability((short) 10);
-//                    greenMeta.setDisplayName("§a§lJoueurs Affich§s");
+//                    greenMeta.setDisplayName("§a§lJoueurs Affichés");
 //                    green.setItemMeta(greenMeta);
 //                    p.getInventory().setItemInHand(green);
 //                    p.updateInventory();
