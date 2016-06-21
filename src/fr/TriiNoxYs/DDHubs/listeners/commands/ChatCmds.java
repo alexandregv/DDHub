@@ -20,26 +20,26 @@ public class ChatCmds implements CommandExecutor, TabCompleter{
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
         if(label.equalsIgnoreCase("clearchat")){
             for(int i=0; i < 150; i++)Bukkit.broadcastMessage("");
-            if(sender instanceof Player)TitleUtils.broadcastActionBar("§e§l" + sender.getName() + ChatColor.GREEN + " a nettoyé le chat.");
-            else TitleUtils.broadcastActionBar("§e§l" + "Un Administrateur" + ChatColor.GREEN + " a nettoyé le chat.");
+            if(sender instanceof Player)TitleUtils.broadcastActionBar("Ã©eÃ©l" + sender.getName() + ChatColor.GREEN + " a nettoyÃ© le chat.");
+            else TitleUtils.broadcastActionBar("Â§eÂ§lUn administrateur" + ChatColor.GREEN + " a nettoyÃ© le chat.");
         }
         else if(label.equalsIgnoreCase("chat")){
             if(args.length != 1) sender.sendMessage(ChatColor.RED + "Usage: /chat <on | off>");
             else{
                 if(args[0].equalsIgnoreCase("on")){
-                    if(ChatUtils.getChatState()) sender.sendMessage(ChatColor.GREEN + "Le chat est déjà activé.");
+                    if(ChatUtils.getChatState()) sender.sendMessage(ChatColor.GREEN + "Le chat est dÃ©jÃ© activÃ©.");
                     else{
                         ChatUtils.setChatState(true);
-                        if(sender instanceof Player) ChatUtils.broadcast("§e§l" + sender.getName() + ChatColor.GREEN + " a activé le chat.");
-                        else ChatUtils.broadcast("§e§l" + "Un Administrateur" + ChatColor.GREEN + " a activé le chat.");
+                        if(sender instanceof Player) ChatUtils.broadcast("Ã©eÃ©l" + sender.getName() + ChatColor.GREEN + " a activÃ© le chat.");
+                        else ChatUtils.broadcast("Â§eÂ§lUn administrateur" + ChatColor.GREEN + " a activÃ© le chat.");
                     }
                 }
                 else if(args[0].equalsIgnoreCase("off")){
-                    if(!ChatUtils.getChatState()) sender.sendMessage(ChatColor.GREEN + "Le chat est déjà désactivé.");
+                    if(!ChatUtils.getChatState()) sender.sendMessage(ChatColor.GREEN + "Le chat est dÃ©jÃ© dÃ©sactivÃ©.");
                     else{
                         ChatUtils.setChatState(false);
-                        if(sender instanceof Player) ChatUtils.broadcast("§e§l" + sender.getName() + ChatColor.RED + " a désactivé le chat.");
-                        else ChatUtils.broadcast("§e§l" + "Un Administrateur" + ChatColor.RED + " a désactivé le chat.");
+                        if(sender instanceof Player) ChatUtils.broadcast("Ã©eÃ©l" + sender.getName() + ChatColor.RED + " a dÃ©sactivÃ© le chat.");
+                        else ChatUtils.broadcast("Â§eÂ§lUn administrateur" + ChatColor.RED + " a dÃ©sactivÃ© le chat.");
                     }
                 }
                 else sender.sendMessage(ChatColor.RED + "Usage: /chat <on | off>");
