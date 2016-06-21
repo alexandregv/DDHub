@@ -1,29 +1,34 @@
 package fr.TriiNoxYs.DDHubs;
 
-import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
+import java.util.ArrayList;
+import java.util.List;
 import org.bukkit.plugin.java.JavaPlugin;
 import fr.TriiNoxYs.DDHubs.handlers.CommandManager;
+import fr.TriiNoxYs.DDHubs.handlers.ConfigManager;
 import fr.TriiNoxYs.DDHubs.handlers.EventManager;
 
 public class Main extends JavaPlugin{
     
-    public static Main plugin;
+    public static Main pl;
     
-    FileConfiguration config = getConfig();
+    public List<String> list = new ArrayList<String>();
     
+    @Override  
     public void onEnable(){
-        plugin = this;
-        Bukkit.broadcastMessage("onEnable");
+        pl = this;
         
-        Bukkit.broadcastMessage(String.valueOf(getConfig()));
+        saveDefaultConfig(); 
+        ConfigManager.loadConfig();
         
         EventManager.registerEvents(this);
         CommandManager.getCommands(this);
     }
     
-    public void onDisable(){
-        saveConfig();
-    }
+    @Override    
+    public void onDisable(){     
+        ConfigManager.saveConfig(); 
+    } 
     
 }
+
+

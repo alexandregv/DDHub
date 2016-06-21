@@ -6,7 +6,7 @@ import fr.TriiNoxYs.DDHubs.Main;
 
 public class ChatUtils{
     
-    private static String prefix = "§8[§4§lDD§6Hubs§8]§r ";
+    private static String prefix = "Â§8[Â§4Â§lDDÂ§6HubsÂ§8]Â§r ";
     private static boolean chat = true;
 	
 	public static void broadcast(String msg){
@@ -19,11 +19,11 @@ public class ChatUtils{
 	
 	public static void sendInfos(Player p){
 	    p.sendMessage("");
-        ChatUtils.sendMsg(p, "§8-------------------------");
-        ChatUtils.sendMsg(p, "§8|§a Développeur: §eTriiNoxYs         §8|");
-        ChatUtils.sendMsg(p, "§8|§a Plugin: §eDDHubs                    §8|");
-        ChatUtils.sendMsg(p, "§8|§a Version: §e" + Main.plugin.getDescription().getVersion() + "                            §8|");
-        ChatUtils.sendMsg(p, "§8-------------------------");
+        ChatUtils.sendMsg(p, "Â§8-------------------------");
+        ChatUtils.sendMsg(p, "Â§8|Â§a DÃ©veloppeur: Â§eTriiNoxYs         Â§8|");
+        ChatUtils.sendMsg(p, "Â§8|Â§a Plugin: Â§eDDHubs                    Â§8|");
+        ChatUtils.sendMsg(p, "Â§8|Â§a Version: Â§e" + Main.pl.getDescription().getVersion() + "                            Â§8|");
+        ChatUtils.sendMsg(p, "Â§8-------------------------");
 	}
 	
 	public static boolean getChatState(){

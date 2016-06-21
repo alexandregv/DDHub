@@ -15,16 +15,16 @@ public class ReloadConfigCmd implements CommandExecutor{
     
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
-    	Main.plugin.reloadConfig();
+    	Main.pl.reloadConfig();
         if(sender instanceof Player){
             Player p = (Player) sender;
             
-            ChatUtils.sendMsg(p, "§aConfiguration rechargée !");
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "title " + p.getName() + " title {text:\" Configuration rechargée !\",color:green}");
-            TitleUtils.sendTitle(p, 40, 10, 5, "§aConfiguration rechargée!", null);
+            ChatUtils.sendMsg(p, "ï¿½aConfiguration rechargï¿½e !");
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "title " + p.getName() + " title {text:\" Configuration rechargï¿½e !\",color:green}");
+            TitleUtils.sendTitle(p, 40, 10, 5, "ï¿½aConfiguration rechargï¿½e!", null);
         }
-        else sender.sendMessage(ChatColor.GREEN + "Configuration rechargée !");
-        Main.plugin.saveConfig();
+        else sender.sendMessage(ChatColor.GREEN + "Configuration rechargï¿½e !");
+        Main.pl.saveConfig();
         return false;
     }
 }
