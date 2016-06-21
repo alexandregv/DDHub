@@ -2,6 +2,7 @@ package fr.TriiNoxYs.DDHubs.listeners.events;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.UUID;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent.ChatSerializer;
 import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
@@ -31,10 +32,16 @@ import fr.TriiNoxYs.DDHubs.utils.VisibilityUtils;
 
 public class Menus implements Listener{
     
+    private static ArrayList<UUID> 
+        noFI = new ArrayList<UUID>(), 
+        noPI = new ArrayList<UUID>(), 
+        noMP = new ArrayList<UUID>(), 
+        noAl = new ArrayList<UUID>();
+    
     private static ArrayList<Player> masking = new ArrayList<Player>();
     
-    public static ItemStack head, gold, compass, sugar, sugarEnch, nametag; //Hotbar
-    public static ItemStack maskON, maskOFF;                                //Params GUI
+    public static ItemStack head, gold, compass, sugar, sugarEnch, nametag;                      //Hotbar
+    public static ItemStack maskON, maskOFF, mpON, mpOFF, fiON, fiOFF, piON, piOFF, alON, alOFF; //Params GUI
     
     public Menus(){
         
@@ -76,17 +83,57 @@ public class Menus implements Listener{
         nametag.setItemMeta(nametagMeta);
         
         //Params GUI
+        maskON = new ItemStack(Material.INK_SACK, 1);
+        ItemMeta maskONMeta = maskON.getItemMeta();
+        maskON.setDurability((short) 8);
+        maskONMeta.setDisplayName("§c§lJoueurs Masqués");
+        maskON.setItemMeta(maskONMeta);
+        
         maskOFF = new ItemStack(Material.INK_SACK, 1);
         ItemMeta masoOFFMeta = maskOFF.getItemMeta();
         maskOFF.setDurability((short) 10);
         masoOFFMeta.setDisplayName("§a§lJoueurs Affichés");
         maskOFF.setItemMeta(masoOFFMeta);
         
-        maskON = new ItemStack(Material.INK_SACK, 1);
-        ItemMeta maskONMeta = maskON.getItemMeta();
-        maskON.setDurability((short) 8);
-        maskONMeta.setDisplayName("§c§lJoueurs Masqués");
-        maskON.setItemMeta(maskONMeta);
+        mpON = new ItemStack(Material.BOOK_AND_QUILL, 1);
+        ItemMeta mpONMeta = mpON.getItemMeta();
+        mpONMeta.setDisplayName("§a§lMP activés");
+        mpON.setItemMeta(mpONMeta);
+        
+        mpOFF = new ItemStack(Material.BOOK, 1);
+        ItemMeta mpOFFMeta = mpOFF.getItemMeta();
+        mpOFFMeta.setDisplayName("§c§lMP désactivés");
+        mpOFF.setItemMeta(mpOFFMeta);
+        
+        fiON = new ItemStack(Material.MAP, 1);
+        ItemMeta fiONMeta = fiON.getItemMeta();
+        fiONMeta.setDisplayName("§a§lDemandes d'ami activées");
+        fiON.setItemMeta(fiONMeta);
+        
+        fiOFF = new ItemStack(Material.PAPER, 1);
+        ItemMeta fiOFFMeta = fiOFF.getItemMeta();
+        fiOFFMeta.setDisplayName("§c§lDemandes d'ami désactivées");
+        fiOFF.setItemMeta(fiOFFMeta);
+        
+        piON = new ItemStack(Material.SLIME_BALL, 1);
+        ItemMeta piONMeta = piON.getItemMeta();
+        piONMeta.setDisplayName("§a§lInvitations de party activées");
+        piON.setItemMeta(piONMeta);
+        
+        piOFF = new ItemStack(Material.FIREWORK_CHARGE, 1);
+        ItemMeta piOFFMeta = piOFF.getItemMeta();
+        piOFFMeta.setDisplayName("§c§lInvitations de party désactivées");
+        piOFF.setItemMeta(piOFFMeta);
+        
+        alON = new ItemStack(Material.RECORD_9, 1);
+        ItemMeta alONFMeta = alON.getItemMeta();
+        alONFMeta.setDisplayName("§a§lAlertes sonores activées");
+        alON.setItemMeta(alONFMeta);
+        
+        alOFF = new ItemStack(Material.RECORD_11, 1);
+        ItemMeta alOFFMeta = alOFF.getItemMeta();
+        alOFFMeta.setDisplayName("§c§lAlertes sonores désactivées");
+        alOFF.setItemMeta(alOFFMeta);
     }
     
     private static void sendBypassError(Player p){
@@ -113,22 +160,58 @@ public class Menus implements Listener{
         }
         else e.setCancelled(true);
         
-        Bukkit.broadcastMessage(inv.toString());
-        
         if(inv.getName().equals("§8§lParamètres")){
-            if(item.getType().equals(Material.INK_SACK) /*&& item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equals("§c§lJoueurs Affichés")*/){
+            if(item.getType().equals(Material.INK_SACK)){
                 if(masking.contains(p)){
                     inv.setItem(0, maskOFF);
                     masking.remove(p);
                     VisibilityUtils.showPlayers(p);
-                    p.sendMessage("§aTous les joueurs sont maintenant §eaffichés§e.");
                 }
                 else{
                     inv.setItem(0, maskON);
                     masking.add(p);
                     VisibilityUtils.maskPlayers(p);
-                    p.sendMessage("§aTous les joueurs sont maintenant §cmasqués§e.");
                 }
+            }
+            
+
+            else if(item.getType().equals(Material.BOOK_AND_QUILL)){
+                inv.setItem(2, mpOFF);
+                noMP.add(p.getUniqueId());
+            }
+            else if(item.getType().equals(Material.BOOK)){
+                inv.setItem(2, mpON);
+                noMP.remove(p.getUniqueId());
+            }
+            
+            
+            else if(item.getType().equals(Material.MAP)){
+                inv.setItem(4, fiOFF);
+                noFI.add(p.getUniqueId());
+            }
+            else if(item.getType().equals(Material.PAPER)){
+                inv.setItem(4, fiON);
+                noFI.remove(p.getUniqueId());
+            }
+            
+            
+            else if(item.getType().equals(Material.SLIME_BALL)){
+                inv.setItem(6, piOFF);
+                noPI.add(p.getUniqueId());
+            }
+            else if(item.getType().equals(Material.FIREWORK_CHARGE)){
+                inv.setItem(6, piON);
+                noPI.remove(p.getUniqueId());
+            }
+            
+            
+            else if(item.getType().equals(Material.RECORD_9)){
+                inv.setItem(8, alOFF);
+                noAl.add(p.getUniqueId());
+            }
+            else if(item.getType().equals(Material.RECORD_11)){
+                inv.setItem(8, alON);
+                noAl.remove(p.getUniqueId());
             }
         }
     }
@@ -192,43 +275,21 @@ public class Menus implements Listener{
                 if(masking.contains(p)) invParams.setItem(0, maskON);
                 else invParams.setItem(0, maskOFF);
                 
+                if(noMP.contains(p.getUniqueId())) invParams.setItem(2, mpOFF);
+                else invParams.setItem(2, mpON);
+                
+                if(noFI.contains(p.getUniqueId())) invParams.setItem(4, fiOFF);
+                else invParams.setItem(4, fiON);
+                
+                if(noPI.contains(p.getUniqueId())) invParams.setItem(6, piOFF);
+                else invParams.setItem(6, piON);
+                
+                if(noAl.contains(p.getUniqueId())) invParams.setItem(8, alOFF);
+                else invParams.setItem(8, alON);
                 
                 p.openInventory(invParams);
             }
         }
-        
-//        else if(item.getType() == Material.INK_SACK){
-//            if(item.hasItemMeta() && item.getItemMeta().hasDisplayName()){
-//                if(item.getItemMeta().getDisplayName().equalsIgnoreCase("§a§lJoueurs Affichés")){
-//                    e.setCancelled(true);
-//                    p.sendMessage("§aTous les joueurs sont maintenant §cmasqués§e.");
-//                    ItemStack gray = new ItemStack(Material.INK_SACK, 1);
-//                    ItemMeta grayMeta = gray.getItemMeta();
-//                    gray.setDurability((short) 8);
-//                    grayMeta.setDisplayName("§c§lJoueurs Masqués");
-//                    gray.setItemMeta(grayMeta);
-//                    p.setItemInHand(gray);
-//                    p.updateInventory();
-//                    
-//                    VisibilityUtils.maskPlayers(p);
-//                    masking.add(p);
-//                }
-//                else if(item.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lJoueurs Masqués")){
-//                    e.setCancelled(true);
-//                    p.sendMessage("§aTous les joueurs sont maintenant §eaffichés§e.");
-//                    ItemStack green = new ItemStack(Material.INK_SACK, 1);
-//                    ItemMeta greenMeta = green.getItemMeta();
-//                    green.setDurability((short) 10);
-//                    greenMeta.setDisplayName("§a§lJoueurs Affichés");
-//                    green.setItemMeta(greenMeta);
-//                    p.getInventory().setItemInHand(green);
-//                    p.updateInventory();
-//                    
-//                    VisibilityUtils.showPlayers(p);
-//                    masking.remove(p);
-//                }
-//            }
-//        }
     }
     
 }
