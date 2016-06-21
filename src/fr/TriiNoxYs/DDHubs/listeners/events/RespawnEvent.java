@@ -37,7 +37,7 @@ public class RespawnEvent implements Listener{
         p.getInventory().setItem(6, Menus.sugar);
         p.getInventory().setItem(8, Menus.nametag);
         
-        p.teleport(new Location(
+        e.setRespawnLocation(new Location(
                 Bukkit.getWorld(config.get("spawn.world").toString()), 
                 config.getDouble("spawn.x"), 
                 config.getDouble("spawn.y"), 
