@@ -1,14 +1,18 @@
 package fr.TriiNoxYs.DDHubs.listeners.events;
 
 import java.util.Arrays;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
+import fr.TriiNoxYs.DDHubs.handlers.ConfigManager;
 import fr.TriiNoxYs.DDHubs.utils.InvUtils;
 
 
@@ -16,6 +20,7 @@ public class RespawnEvent implements Listener{
     
     @EventHandler
     public void onPlayerRespawn(PlayerRespawnEvent e){
+        FileConfiguration config = ConfigManager.getConfig();
         Player p = e.getPlayer();
         InvUtils.clearInv(p);
         
@@ -31,6 +36,14 @@ public class RespawnEvent implements Listener{
         p.getInventory().setItem(4, Menus.compass);
         p.getInventory().setItem(6, Menus.sugar);
         p.getInventory().setItem(8, Menus.nametag);
+        
+        p.teleport(new Location(
+                Bukkit.getWorld(config.get("spawn.world").toString()), 
+                (double) config.get("spawn.x"), 
+                (double) config.get("spawn.y"), 
+                (double) config.get("spawn.z"),
+                (float) config.get("spawn.yaw"),
+                (float) config.get("spawn.pitch")));
     }
     
 }
