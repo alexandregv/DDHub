@@ -13,9 +13,9 @@ public class ChatEvent implements Listener{
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent e){
         final Player p = e.getPlayer();
-        if(ChatUtils.getChatState() == false && !p.hasPermission("ddhubs.bypass.mute")){
+        if(ChatUtils.isMuted() && !p.hasPermission("ddhubs.bypass.chatmute")){
             e.setCancelled(true);
-            ChatUtils.sendMsg(p, ChatColor.RED + "Le chat est d�sactiv�.");
+            ChatUtils.sendMsg(p, ChatColor.RED + "Le chat est désactivé.");
         }
     }
     

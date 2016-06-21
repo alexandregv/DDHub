@@ -7,7 +7,7 @@ import fr.TriiNoxYs.DDHubs.Main;
 public class ChatUtils{
     
     private static String prefix = "§8[§4§lDD§6Hubs§8]§r ";
-    private static boolean chat = true;
+    private static boolean muted = true;
 	
 	public static void broadcast(String msg){
 		Bukkit.broadcastMessage(prefix + msg);
@@ -26,12 +26,16 @@ public class ChatUtils{
         ChatUtils.sendMsg(p, "§8-------------------------");
 	}
 	
-	public static boolean getChatState(){
-	    return chat;
+	public static boolean isMuted(){
+	    return muted;
 	}
 	
-	public static void setChatState(boolean state){
-	    chat = state;
-	}
+	public static void muteChat(){
+	    muted = true;
+    }
+	
+	public static void unmuteChat(){
+	    muted = false;
+    }
 	
 }
