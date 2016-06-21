@@ -8,7 +8,7 @@ public class VisibilityUtils{
     
     public static void maskPlayers(Player p){
         for(Player pl : Bukkit.getOnlinePlayers()){
-            if(!(pl.isOp() || pl.hasPermission("evenziatools.bypass.hide"))) p.hidePlayer(pl);
+            if(!(pl.isOp() || pl.hasPermission("ddhubs.bypass.hide"))) p.hidePlayer(pl);
         }
         p.playSound(p.getLocation(), Sound.FIREWORK_BLAST, 10.0F, 1.0F);
     }

@@ -2,15 +2,20 @@ package fr.TriiNoxYs.DDHubs.listeners.events;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import net.minecraft.server.v1_8_R3.IChatBaseComponent;
+import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
+import net.minecraft.server.v1_8_R3.IChatBaseComponent.ChatSerializer;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryMoveItemEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -18,12 +23,14 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import fr.TriiNoxYs.DDHubs.Main;
 import fr.TriiNoxYs.DDHubs.utils.VisibilityUtils;
 
 
 public class Menus implements Listener{
     
     private static ArrayList<Player> masking = new ArrayList<Player>();
+    
     public static ItemStack head, gold, compass, sugar, sugarEnch, nametag;
     
     public Menus(){
@@ -64,28 +71,39 @@ public class Menus implements Listener{
         nametag.setItemMeta(nametagMeta);
     }
     
+    private static void sendBypassError(Player p){
+        p.sendMessage("§cVous devez être en créatif pour que le bypass soit actif.");
+        
+        IChatBaseComponent comp = ChatSerializer.a("[\"\",{\"text\":\"Cliquez ici pour passer en créatif.\",\"color\":\"red\",\"underlined\":true,\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/gamemode 1\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"\",\"extra\":[{\"text\":\"Cliquez pour passer en créatif\",\"color\":\"gray\"}]}}}]");
+        PacketPlayOutChat packet = new PacketPlayOutChat(comp);
+        ((CraftPlayer) p).getHandle().playerConnection.sendPacket(packet);
+    }
+    
     @EventHandler
     public void onInvClick(InventoryClickEvent e){
         Player p = (Player) e.getWhoClicked();
-        ItemStack item = e.getCurrentItem();
         
-        if(item.getType() == Material.SKULL_ITEM && item.hasItemMeta()){
-            SkullMeta headMeta = (SkullMeta) item.getItemMeta();
-            if(headMeta.hasOwner()) e.setCancelled(true);
-            p.updateInventory(); 
+        if(Main.bypassed.contains(p)){
+            if(!p.getGameMode().equals(GameMode.CREATIVE)){
+                e.setCancelled(true);
+                sendBypassError(p);
+            }
         }
-    }
-
-    @EventHandler
-    public void onMoveItem(InventoryMoveItemEvent e){
-        if(e.getSource().getHolder() instanceof Player){
-            Player p = (Player) e.getSource().getHolder();
-            
-            e.setCancelled(true);
-            p.updateInventory();
-        }
+        else e.setCancelled(true);
     }
     
+    @EventHandler
+    public void onDrop(PlayerDropItemEvent e){
+        Player p = e.getPlayer();
+        if(Main.bypassed.contains(p)){
+            if(!p.getGameMode().equals(GameMode.CREATIVE)){
+                e.setCancelled(true);
+                sendBypassError(p);
+            }
+        }
+        else e.setCancelled(true);
+    }
+
     @EventHandler
     public void onRightClick(PlayerInteractEvent e){
         Player p = e.getPlayer();
@@ -118,11 +136,17 @@ public class Menus implements Listener{
                 }
             }
         }
+        else if(item.getType() == Material.GOLD_INGOT){
+            if(item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§6§lBoutique")){
+                e.setCancelled(true);
+                p.sendMessage("§cBoutique en cours de développement.");
+            }
+        }
         else if(item.getType() == Material.INK_SACK){
             if(item.hasItemMeta() && item.getItemMeta().hasDisplayName()){
-                if(item.getItemMeta().getDisplayName().equalsIgnoreCase("§a§lJoueurs Affich§s")){
+                if(item.getItemMeta().getDisplayName().equalsIgnoreCase("§a§lJoueurs Affichés")){
                     e.setCancelled(true);
-                    p.sendMessage("§aTous les joueurs sont maintenant §cmasqu§s§e.");
+                    p.sendMessage("§aTous les joueurs sont maintenant §cmasqués§e.");
                     ItemStack gray = new ItemStack(Material.INK_SACK, 1);
                     ItemMeta grayMeta = gray.getItemMeta();
                     gray.setDurability((short) 8);
@@ -134,9 +158,9 @@ public class Menus implements Listener{
                     VisibilityUtils.maskPlayers(p);
                     masking.add(p);
                 }
-                else if(item.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lJoueurs Masqu§s")){
+                else if(item.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lJoueurs Masqués")){
                     e.setCancelled(true);
-                    p.sendMessage("§aTous les joueurs sont maintenant §eaffich§s§e.");
+                    p.sendMessage("§aTous les joueurs sont maintenant §eaffichés§e.");
                     ItemStack green = new ItemStack(Material.INK_SACK, 1);
                     ItemMeta greenMeta = green.getItemMeta();
                     green.setDurability((short) 10);
