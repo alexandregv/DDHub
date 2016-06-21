@@ -17,7 +17,7 @@ public class ReloadConfigCmd implements CommandExecutor{
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
     	Main.pl.reloadConfig();
         if(sender instanceof Player){
-            Player p = (Player) sender;
+            final Player p = (Player) sender;
             
             ChatUtils.sendMsg(p, "§aConfiguration rechargée !");
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "title " + p.getName() + " title {text:\" Configuration recharg�e !\",color:green}");

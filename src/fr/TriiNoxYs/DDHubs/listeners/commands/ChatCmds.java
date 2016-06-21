@@ -20,7 +20,7 @@ public class ChatCmds implements CommandExecutor, TabCompleter{
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
         if(label.equalsIgnoreCase("clearchat")){
             for(int i=0; i < 150; i++)Bukkit.broadcastMessage("");
-            if(sender instanceof Player)TitleUtils.broadcastActionBar("éeél" + sender.getName() + ChatColor.GREEN + " a nettoyé le chat.");
+            if(sender instanceof Player) TitleUtils.broadcastActionBar("éeél" + sender.getName() + ChatColor.GREEN + " a nettoyé le chat.");
             else TitleUtils.broadcastActionBar("§e§lUn administrateur" + ChatColor.GREEN + " a nettoyé le chat.");
         }
         else if(label.equalsIgnoreCase("chat")){

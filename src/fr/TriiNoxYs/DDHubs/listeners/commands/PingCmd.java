@@ -16,7 +16,7 @@ public class PingCmd implements CommandExecutor{
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
     	if(args.length == 0){
             if(sender instanceof Player){
-                Player p = (Player) sender;
+                final Player p = (Player) sender;
                 int ping = ((CraftPlayer) p).getHandle().ping;
                 ChatUtils.sendMsg(p, ChatColor.GREEN + "Votre ping: " +  ChatColor.GOLD + ping);
             }
@@ -32,8 +32,8 @@ public class PingCmd implements CommandExecutor{
                 else sender.sendMessage(ChatColor.GREEN + "Ping de " + target.getName() + ": " +  ChatColor.GOLD + ping + "ms"); 
             }
             else{
-                if(sender instanceof Player) sender.sendMessage(ChatColor.YELLOW + args[0] + ChatColor.RED + " n'est pas connecté.");
-                else ChatUtils.sendMsg(target, ChatColor.YELLOW + args[0] + ChatColor.RED + " n'est pas connecté.");
+                if(sender instanceof Player) sender.sendMessage(ChatColor.YELLOW + args[0] + ChatColor.RED + " n'est pas connectï¿½.");
+                else ChatUtils.sendMsg(target, ChatColor.YELLOW + args[0] + ChatColor.RED + " n'est pas connectï¿½.");
             }
         }
         else sender.sendMessage(ChatColor.RED + "Usage: /ping [player]");

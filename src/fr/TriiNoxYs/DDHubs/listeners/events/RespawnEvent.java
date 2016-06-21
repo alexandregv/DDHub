@@ -21,7 +21,7 @@ public class RespawnEvent implements Listener{
     @EventHandler
     public void onPlayerRespawn(PlayerRespawnEvent e){
         FileConfiguration config = ConfigManager.getConfig();
-        Player p = e.getPlayer();
+        final Player p = e.getPlayer();
         InvUtils.clearInv(p);
         
         ItemStack head = new ItemStack(Material.SKULL_ITEM, 1, (short) SkullType.PLAYER.ordinal());
@@ -39,11 +39,11 @@ public class RespawnEvent implements Listener{
         
         p.teleport(new Location(
                 Bukkit.getWorld(config.get("spawn.world").toString()), 
-                (double) config.get("spawn.x"), 
-                (double) config.get("spawn.y"), 
-                (double) config.get("spawn.z"),
-                (float) config.get("spawn.yaw"),
-                (float) config.get("spawn.pitch")));
+                config.getDouble("spawn.x"), 
+                config.getDouble("spawn.y"), 
+                config.getDouble("spawn.z"),
+                config.getLong("spawn.yaw"),
+                config.getLong("spawn.pitch")));
     }
     
 }

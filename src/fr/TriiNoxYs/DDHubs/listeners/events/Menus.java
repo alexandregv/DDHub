@@ -1,10 +1,10 @@
 package fr.TriiNoxYs.DDHubs.listeners.events;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
-import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent.ChatSerializer;
+import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
@@ -17,6 +17,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -24,12 +25,11 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import fr.TriiNoxYs.DDHubs.Main;
-import fr.TriiNoxYs.DDHubs.utils.VisibilityUtils;
 
 
 public class Menus implements Listener{
     
-    private static ArrayList<Player> masking = new ArrayList<Player>();
+//    private static ArrayList<Player> masking = new ArrayList<Player>();
     
     public static ItemStack head, gold, compass, sugar, sugarEnch, nametag;
     
@@ -81,7 +81,7 @@ public class Menus implements Listener{
     
     @EventHandler
     public void onInvClick(InventoryClickEvent e){
-        Player p = (Player) e.getWhoClicked();
+        final Player p = (Player) e.getWhoClicked();
         
         if(Main.bypassed.contains(p)){
             if(!p.getGameMode().equals(GameMode.CREATIVE)){
@@ -94,7 +94,7 @@ public class Menus implements Listener{
     
     @EventHandler
     public void onDrop(PlayerDropItemEvent e){
-        Player p = e.getPlayer();
+        final Player p = e.getPlayer();
         if(Main.bypassed.contains(p)){
             if(!p.getGameMode().equals(GameMode.CREATIVE)){
                 e.setCancelled(true);
@@ -106,7 +106,7 @@ public class Menus implements Listener{
 
     @EventHandler
     public void onRightClick(PlayerInteractEvent e){
-        Player p = e.getPlayer();
+        final Player p = e.getPlayer();
         Action action = e.getAction();
         ItemStack item = p.getItemInHand();
         
@@ -142,38 +142,46 @@ public class Menus implements Listener{
                 p.sendMessage("§cBoutique en cours de développement.");
             }
         }
-        else if(item.getType() == Material.INK_SACK){
-            if(item.hasItemMeta() && item.getItemMeta().hasDisplayName()){
-                if(item.getItemMeta().getDisplayName().equalsIgnoreCase("§a§lJoueurs Affichés")){
-                    e.setCancelled(true);
-                    p.sendMessage("§aTous les joueurs sont maintenant §cmasqués§e.");
-                    ItemStack gray = new ItemStack(Material.INK_SACK, 1);
-                    ItemMeta grayMeta = gray.getItemMeta();
-                    gray.setDurability((short) 8);
-                    grayMeta.setDisplayName("§c§lJoueurs Masqu§s");
-                    gray.setItemMeta(grayMeta);
-                    p.setItemInHand(gray);
-                    p.updateInventory();
-                    
-                    VisibilityUtils.maskPlayers(p);
-                    masking.add(p);
-                }
-                else if(item.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lJoueurs Masqués")){
-                    e.setCancelled(true);
-                    p.sendMessage("§aTous les joueurs sont maintenant §eaffichés§e.");
-                    ItemStack green = new ItemStack(Material.INK_SACK, 1);
-                    ItemMeta greenMeta = green.getItemMeta();
-                    green.setDurability((short) 10);
-                    greenMeta.setDisplayName("§a§lJoueurs Affich§s");
-                    green.setItemMeta(greenMeta);
-                    p.getInventory().setItemInHand(green);
-                    p.updateInventory();
-                    
-                    VisibilityUtils.showPlayers(p);
-                    masking.remove(p);
-                }
+        else if(item.getType() == Material.NAME_TAG){
+            if(item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§7§lParamètres")){
+                e.setCancelled(true);
+                Inventory invParams = Bukkit.createInventory(null, 9, "§8§lParamètres");
+                p.openInventory(invParams);
             }
         }
+        
+//        else if(item.getType() == Material.INK_SACK){
+//            if(item.hasItemMeta() && item.getItemMeta().hasDisplayName()){
+//                if(item.getItemMeta().getDisplayName().equalsIgnoreCase("§a§lJoueurs Affichés")){
+//                    e.setCancelled(true);
+//                    p.sendMessage("§aTous les joueurs sont maintenant §cmasqués§e.");
+//                    ItemStack gray = new ItemStack(Material.INK_SACK, 1);
+//                    ItemMeta grayMeta = gray.getItemMeta();
+//                    gray.setDurability((short) 8);
+//                    grayMeta.setDisplayName("§c§lJoueurs Masqu§s");
+//                    gray.setItemMeta(grayMeta);
+//                    p.setItemInHand(gray);
+//                    p.updateInventory();
+//                    
+//                    VisibilityUtils.maskPlayers(p);
+//                    masking.add(p);
+//                }
+//                else if(item.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lJoueurs Masqués")){
+//                    e.setCancelled(true);
+//                    p.sendMessage("§aTous les joueurs sont maintenant §eaffichés§e.");
+//                    ItemStack green = new ItemStack(Material.INK_SACK, 1);
+//                    ItemMeta greenMeta = green.getItemMeta();
+//                    green.setDurability((short) 10);
+//                    greenMeta.setDisplayName("§a§lJoueurs Affich§s");
+//                    green.setItemMeta(greenMeta);
+//                    p.getInventory().setItemInHand(green);
+//                    p.updateInventory();
+//                    
+//                    VisibilityUtils.showPlayers(p);
+//                    masking.remove(p);
+//                }
+//            }
+//        }
     }
     
 }

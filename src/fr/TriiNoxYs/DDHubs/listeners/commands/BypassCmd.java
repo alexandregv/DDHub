@@ -14,10 +14,9 @@ import fr.TriiNoxYs.DDHubs.Main;
 public class BypassCmd implements CommandExecutor{
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label,
-            String[] args){
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
         if(sender instanceof Player){
-            Player p = (Player) sender;
+            final Player p = (Player) sender;
             if(p.hasPermission("ddhubs.bypass")){
                 if(Main.bypassed.contains(p)){
                     Main.bypassed.remove(p);
