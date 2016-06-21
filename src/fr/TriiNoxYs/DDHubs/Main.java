@@ -2,6 +2,7 @@ package fr.TriiNoxYs.DDHubs;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import fr.TriiNoxYs.DDHubs.handlers.CommandManager;
@@ -25,6 +26,8 @@ public class Main extends JavaPlugin{
         
         EventManager.registerEvents(this);
         CommandManager.getCommands(this);
+        
+        Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
     }
     
     @Override    

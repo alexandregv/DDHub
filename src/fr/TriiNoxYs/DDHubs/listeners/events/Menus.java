@@ -17,6 +17,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -44,6 +45,7 @@ public class Menus implements Listener{
     public static ItemStack head, gold, compass, sugar, sugarEnch, nametag;                      //Hotbar
     public static ItemStack maskON, maskOFF, mpON, mpOFF, fiON, fiOFF, piON, piOFF, alON, alOFF; //Params GUI
     public static ItemStack party, stats;                                                        //Profile GUI
+    public static ItemStack bGlass, staff, spawn, infos, pvpbox, adventure, jump, egg;           //TP GUI
     
     public Menus(){
         
@@ -60,7 +62,7 @@ public class Menus implements Listener{
         
         compass = new ItemStack(Material.COMPASS, 1);
         ItemMeta compassMeta = compass.getItemMeta();
-        compassMeta.setDisplayName("§f§lMenu des serveurs");
+        compassMeta.setDisplayName("§f§lMenu principal");
         compassMeta.setLore(Arrays.asList("§6Voyagez parmis nos serveurs !"));
         compass.setItemMeta(compassMeta);
         
@@ -83,6 +85,7 @@ public class Menus implements Listener{
         nametagMeta.setDisplayName("§7§lParamètres");
         nametagMeta.setLore(Arrays.asList("§7Editez vos paramètres comme bon vous semble !"));
         nametag.setItemMeta(nametagMeta);
+        
         
         //Params GUI
         maskON = new ItemStack(Material.INK_SACK, 1);
@@ -137,6 +140,7 @@ public class Menus implements Listener{
         alOFFMeta.setDisplayName("§c§lAlertes sonores désactivées");
         alOFF.setItemMeta(alOFFMeta);
         
+        
         //Profile GUI
         party = new ItemStack(Material.PRISMARINE_CRYSTALS, 1);
         ItemMeta partyMeta = party.getItemMeta();
@@ -148,6 +152,48 @@ public class Menus implements Listener{
         statsMeta.setDisplayName("§a§lStats");
         stats.setItemMeta(statsMeta);
         
+        
+        //TP GUI
+        bGlass = new ItemStack(Material.STAINED_GLASS_PANE, 1);
+        ItemMeta bGlassMeta = bGlass.getItemMeta();
+        bGlassMeta.setDisplayName("");
+        bGlass.setDurability((short) 11);
+        bGlass.setItemMeta(bGlassMeta);
+        
+        staff = new ItemStack(Material.ARMOR_STAND, 1);
+        ItemMeta staffMeta = staff.getItemMeta();
+        staffMeta.setDisplayName("§9§lSalle du staff");
+        staff.setItemMeta(staffMeta);
+        
+        spawn = new ItemStack(Material.NETHER_STAR, 1);
+        ItemMeta spawnMeta = spawn.getItemMeta();
+        spawnMeta.setDisplayName("§e§lSpawn");
+        spawn.setItemMeta(spawnMeta);
+        
+        infos = new ItemStack(Material.SIGN, 1);
+        ItemMeta infosMeta = infos.getItemMeta();
+        infosMeta.setDisplayName("§5§lInfos serveur");
+        infos.setItemMeta(infosMeta);
+        
+        pvpbox = new ItemStack(Material.DIAMOND_SWORD, 1);
+        ItemMeta pvpboxMeta = pvpbox.getItemMeta();
+        pvpboxMeta.setDisplayName("§f-=- §cPvP Box §f-=-");
+        pvpbox.setItemMeta(pvpboxMeta);
+        
+        adventure = new ItemStack(Material.IRON_SWORD, 1);
+        ItemMeta adventureMeta = adventure.getItemMeta();
+        adventureMeta.setDisplayName("§f-=- §aPvP Adventure §f-=-");
+        adventure.setItemMeta(adventureMeta);
+        
+        jump = new ItemStack(Material.FEATHER, 1);
+        ItemMeta jumpMeta = jump.getItemMeta();
+        jumpMeta.setDisplayName("§dJump du Dragon");
+        jump.setItemMeta(jumpMeta);
+        
+        egg = new ItemStack(Material.DRAGON_EGG, 1);
+        ItemMeta eggMeta = egg.getItemMeta();
+        eggMeta.setDisplayName("§eEaster Egg");
+        egg.setItemMeta(eggMeta);
     }
     
     @EventHandler
@@ -222,18 +268,6 @@ public class Menus implements Listener{
         }
     }
     
-    @EventHandler
-    public void onDrop(PlayerDropItemEvent e){
-        final Player p = e.getPlayer();
-        if(Main.bypassed.contains(p)){
-            if(!p.getGameMode().equals(GameMode.CREATIVE)){
-                e.setCancelled(true);
-                ChatUtils.sendBypassError(p);
-            }
-        }
-        else e.setCancelled(true);
-    }
-
     @EventHandler
     public void onRightClick(PlayerInteractEvent e){
         final Player p = e.getPlayer();
@@ -321,6 +355,49 @@ public class Menus implements Listener{
                 p.openInventory(invProfile);
             }
         }
+        else if(item.getType() == Material.COMPASS){
+            if(item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§f§lMenu principal")){
+                e.setCancelled(true);
+                
+                Inventory invProfile = Bukkit.createInventory(null, 27, "§8§lParamètres");
+                
+                for(int i = 9; i <= 17; i++)
+                    invProfile.setItem(i, bGlass); 
+                invProfile.setItem(2,  pvpbox);
+                invProfile.setItem(6,  adventure);
+                invProfile.setItem(18,  staff);
+                invProfile.setItem(20, jump);
+                invProfile.setItem(22, spawn);
+                invProfile.setItem(24, infos);
+                invProfile.setItem(26, egg);
+                
+                p.openInventory(invProfile);
+            }
+        }
+    }
+    
+    @EventHandler
+    public void onDrop(PlayerDropItemEvent e){
+        final Player p = e.getPlayer();
+        if(Main.bypassed.contains(p)){
+            if(!p.getGameMode().equals(GameMode.CREATIVE)){
+                e.setCancelled(true);
+                ChatUtils.sendBypassError(p);
+            }
+        }
+        else e.setCancelled(true);
+    }
+    
+    @EventHandler
+    public void onPickup(PlayerPickupItemEvent e){
+        final Player p = e.getPlayer();
+        if(Main.bypassed.contains(p)){
+            if(!p.getGameMode().equals(GameMode.CREATIVE)){
+                e.setCancelled(true);
+                ChatUtils.sendBypassError(p);
+            }
+        }
+        else e.setCancelled(true);
     }
     
 }
