@@ -10,18 +10,22 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import fr.TriiNoxYs.DDHubs.handlers.ConfigManager;
 import fr.TriiNoxYs.DDHubs.utils.InvUtils;
 
 
-public class JoinEvent implements Listener{
+public class JoinQuitEvents implements Listener{
     
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent e){
+    public void onJoin(PlayerJoinEvent e){
         FileConfiguration config = ConfigManager.getConfig();
         final Player p = e.getPlayer();
+        
+        e.setJoinMessage("§7[§a+§7] §7" + p.getName());
+        
         InvUtils.clearInv(p);
         
         ItemStack head = new ItemStack(Material.SKULL_ITEM, 1, (short) SkullType.PLAYER.ordinal());
@@ -44,6 +48,12 @@ public class JoinEvent implements Listener{
                 config.getDouble("spawn.z"),
                 config.getLong("spawn.yaw"),
                 config.getLong("spawn.pitch")));
+    }
+    
+    @EventHandler
+    public void onQuit(PlayerQuitEvent e){
+        final Player p = e.getPlayer();
+        e.setQuitMessage("§7[§c-§7] " + p.getName());
     }
     
 }
