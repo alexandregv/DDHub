@@ -3,12 +3,14 @@ package fr.TriiNoxYs.DDHubs.handlers;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
+import fr.TriiNoxYs.DDHubs.listeners.events.BuildEvent;
 import fr.TriiNoxYs.DDHubs.listeners.events.ChatEvent;
 import fr.TriiNoxYs.DDHubs.listeners.events.CommandPreprocessEvent;
-import fr.TriiNoxYs.DDHubs.listeners.events.VoidDamageEvent;
+import fr.TriiNoxYs.DDHubs.listeners.events.FoodChangeEvent;
 import fr.TriiNoxYs.DDHubs.listeners.events.JoinQuitEvents;
 import fr.TriiNoxYs.DDHubs.listeners.events.Menus;
 import fr.TriiNoxYs.DDHubs.listeners.events.RespawnEvent;
+import fr.TriiNoxYs.DDHubs.listeners.events.DamageEvent;
 import fr.TriiNoxYs.DDHubs.listeners.events.WeatherEvent;
 
 
@@ -23,7 +25,9 @@ public class EventManager{
        pm.registerEvents(new ChatEvent(), pl);
        pm.registerEvents(new RespawnEvent(), pl);
        pm.registerEvents(new WeatherEvent(), pl);
-       pm.registerEvents(new VoidDamageEvent(), pl);
+       pm.registerEvents(new DamageEvent(), pl);
+       pm.registerEvents(new BuildEvent(), pl);
+       pm.registerEvents(new FoodChangeEvent(), pl);
     }
     
 }

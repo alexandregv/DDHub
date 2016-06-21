@@ -1,6 +1,10 @@
 package fr.TriiNoxYs.DDHubs.utils;
 
+import net.minecraft.server.v1_8_R3.IChatBaseComponent;
+import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
+import net.minecraft.server.v1_8_R3.IChatBaseComponent.ChatSerializer;
 import org.bukkit.Bukkit;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import fr.TriiNoxYs.DDHubs.Main;
 
@@ -36,6 +40,14 @@ public class ChatUtils{
 	
 	public static void unmuteChat(){
 	    muted = false;
+    }
+	
+	public static void sendBypassError(Player p){
+        p.sendMessage("§cVous devez être en créatif pour que le bypass soit actif.");
+        
+        IChatBaseComponent comp = ChatSerializer.a("[\"\",{\"text\":\"Cliquez ici pour passer en créatif.\",\"color\":\"red\",\"underlined\":true,\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/gamemode 1\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"\",\"extra\":[{\"text\":\"Cliquez pour passer en créatif\",\"color\":\"gray\"}]}}}]");
+        PacketPlayOutChat packet = new PacketPlayOutChat(comp);
+        ((CraftPlayer) p).getHandle().playerConnection.sendPacket(packet);
     }
 	
 }

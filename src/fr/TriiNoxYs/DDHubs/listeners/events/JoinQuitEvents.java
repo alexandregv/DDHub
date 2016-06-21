@@ -2,6 +2,7 @@ package fr.TriiNoxYs.DDHubs.listeners.events;
 
 import java.util.Arrays;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
@@ -48,6 +49,8 @@ public class JoinQuitEvents implements Listener{
                 config.getDouble("spawn.z"),
                 config.getLong("spawn.yaw"),
                 config.getLong("spawn.pitch")));
+        
+        p.setGameMode(GameMode.ADVENTURE);
     }
     
     @EventHandler

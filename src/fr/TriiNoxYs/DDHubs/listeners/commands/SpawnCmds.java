@@ -18,19 +18,17 @@ public class SpawnCmds implements CommandExecutor{
         if(sender instanceof Player){
             final Player p = (Player) sender;
             if(label.equalsIgnoreCase("spawn")){
-                if(p.hasPermission("ddhubs.spawn")){
-                    FileConfiguration config = ConfigManager.getConfig();
-                    
-                    p.teleport(new Location(
-                            Bukkit.getWorld(config.get("spawn.world").toString()), 
-                            config.getDouble("spawn.x"), 
-                            config.getDouble("spawn.y"), 
-                            config.getDouble("spawn.z"),
-                            config.getLong("spawn.yaw"),
-                            config.getLong("spawn.pitch")));
-                    
-                    p.sendMessage("§7§oVous voila de retour au spawn.");
-                }
+                FileConfiguration config = ConfigManager.getConfig();
+                
+                p.teleport(new Location(
+                        Bukkit.getWorld(config.get("spawn.world").toString()), 
+                        config.getDouble("spawn.x"), 
+                        config.getDouble("spawn.y"), 
+                        config.getDouble("spawn.z"),
+                        config.getLong("spawn.yaw"),
+                        config.getLong("spawn.pitch")));
+                
+                p.sendMessage("§7§oVous voila de retour au spawn.");
             }else if(label.equalsIgnoreCase("setspawn")){
                 if(p.hasPermission("ddhubs.setspawn")){
                     FileConfiguration config = ConfigManager.getConfig();

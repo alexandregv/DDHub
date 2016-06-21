@@ -5,14 +5,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
-import net.minecraft.server.v1_8_R3.IChatBaseComponent;
-import net.minecraft.server.v1_8_R3.IChatBaseComponent.ChatSerializer;
-import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -29,6 +25,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import fr.TriiNoxYs.DDHubs.Main;
+import fr.TriiNoxYs.DDHubs.utils.ChatUtils;
 import fr.TriiNoxYs.DDHubs.utils.VisibilityUtils;
 
 
@@ -46,6 +43,7 @@ public class Menus implements Listener{
     
     public static ItemStack head, gold, compass, sugar, sugarEnch, nametag;                      //Hotbar
     public static ItemStack maskON, maskOFF, mpON, mpOFF, fiON, fiOFF, piON, piOFF, alON, alOFF; //Params GUI
+    public static ItemStack party, stats;                                                        //Profile GUI
     
     public Menus(){
         
@@ -138,14 +136,18 @@ public class Menus implements Listener{
         ItemMeta alOFFMeta = alOFF.getItemMeta();
         alOFFMeta.setDisplayName("§c§lAlertes sonores désactivées");
         alOFF.setItemMeta(alOFFMeta);
-    }
-    
-    private static void sendBypassError(Player p){
-        p.sendMessage("§cVous devez être en créatif pour que le bypass soit actif.");
         
-        IChatBaseComponent comp = ChatSerializer.a("[\"\",{\"text\":\"Cliquez ici pour passer en créatif.\",\"color\":\"red\",\"underlined\":true,\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/gamemode 1\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"\",\"extra\":[{\"text\":\"Cliquez pour passer en créatif\",\"color\":\"gray\"}]}}}]");
-        PacketPlayOutChat packet = new PacketPlayOutChat(comp);
-        ((CraftPlayer) p).getHandle().playerConnection.sendPacket(packet);
+        //Profile GUI
+        party = new ItemStack(Material.PRISMARINE_CRYSTALS, 1);
+        ItemMeta partyMeta = party.getItemMeta();
+        partyMeta.setDisplayName("§9§lParty");
+        party.setItemMeta(partyMeta);
+        
+        stats = new ItemStack(Material.EMERALD, 1);
+        ItemMeta statsMeta = stats.getItemMeta();
+        statsMeta.setDisplayName("§a§lStats");
+        stats.setItemMeta(statsMeta);
+        
     }
     
     @EventHandler
@@ -159,7 +161,7 @@ public class Menus implements Listener{
         if(Main.bypassed.contains(p)){
             if(!p.getGameMode().equals(GameMode.CREATIVE)){
                 e.setCancelled(true);
-                sendBypassError(p);
+                ChatUtils.sendBypassError(p);
             }
         }
         else e.setCancelled(true);
@@ -226,7 +228,7 @@ public class Menus implements Listener{
         if(Main.bypassed.contains(p)){
             if(!p.getGameMode().equals(GameMode.CREATIVE)){
                 e.setCancelled(true);
-                sendBypassError(p);
+                ChatUtils.sendBypassError(p);
             }
         }
         else e.setCancelled(true);
@@ -238,9 +240,8 @@ public class Menus implements Listener{
         Action action = e.getAction();
         ItemStack item = p.getItemInHand();
         
-        if((action == Action.PHYSICAL) || (item == null) || (item.getType() == Material.AIR)){
+        if(action == Action.PHYSICAL || item == null || item.getType() == Material.AIR || action == Action.LEFT_CLICK_AIR || action == Action.LEFT_CLICK_BLOCK)
             return;
-        }
         
         if(item.getType() == Material.SUGAR){
             if(item.hasItemMeta() && item.getItemMeta().hasDisplayName()){
@@ -298,6 +299,26 @@ public class Menus implements Listener{
                 else invParams.setItem(8, alON);
                 
                 p.openInventory(invParams);
+            }
+        }
+        else if(item.getType() == Material.SKULL_ITEM){
+            if(item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lMon profil")){
+                e.setCancelled(true);
+                
+                Inventory invProfile = Bukkit.createInventory(null, 9, "§8§lParamètres");
+                
+                ItemStack head = new ItemStack(Material.SKULL_ITEM, 1, (short) SkullType.PLAYER.ordinal());
+                SkullMeta headMeta = (SkullMeta) head.getItemMeta();
+                headMeta.setDisplayName("§6§lAmis");
+                headMeta.setLore(Arrays.asList("§7Jouez avec vos amis !"));
+                headMeta.setOwner(p.getName());
+                head.setItemMeta(headMeta);
+                
+                invProfile.setItem(1, party);
+                invProfile.setItem(4, head);
+                invProfile.setItem(7, stats);
+                
+                p.openInventory(invProfile);
             }
         }
     }
