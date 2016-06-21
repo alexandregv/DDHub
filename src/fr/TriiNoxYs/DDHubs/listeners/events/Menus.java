@@ -2,7 +2,9 @@ package fr.TriiNoxYs.DDHubs.listeners.events;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent.ChatSerializer;
 import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
@@ -39,6 +41,8 @@ public class Menus implements Listener{
         noAl = new ArrayList<UUID>();
     
     private static ArrayList<Player> masking = new ArrayList<Player>();
+    
+    private static HashMap<Player, Long> sugarCooldown = new HashMap<Player, Long>();
     
     public static ItemStack head, gold, compass, sugar, sugarEnch, nametag;                      //Hotbar
     public static ItemStack maskON, maskOFF, mpON, mpOFF, fiON, fiOFF, piON, piOFF, alON, alOFF; //Params GUI
@@ -241,21 +245,27 @@ public class Menus implements Listener{
         if(item.getType() == Material.SUGAR){
             if(item.hasItemMeta() && item.getItemMeta().hasDisplayName()){
                 if(item.getItemMeta().getDisplayName().equalsIgnoreCase("§5§lPoudre de cheminette")){
-                    if(item.getEnchantments().isEmpty()){
-                        e.setCancelled(true);
-                        p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 100000, 3));
-                        p.setItemInHand(sugarEnch);
-                        p.updateInventory();
-                        p.sendMessage("§aEt hop, une petite dose :)");
+                    if(sugarCooldown.containsKey(p) && System.currentTimeMillis() < sugarCooldown.get(p) + 5000){
+                        p.sendMessage("§cMerci de ne pas spam les gadgets. Attendez §e" + TimeUnit.MILLISECONDS.toSeconds(((sugarCooldown.get(p) + 5000) - System.currentTimeMillis())) + "s§c.");
                     }
-                    else if(item.getEnchantments().get(Enchantment.DURABILITY).equals(10)){
-                        e.setCancelled(true);
-                        p.removePotionEffect(PotionEffectType.SPEED);
-                        p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 120, 1));
-                        p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 50, 1));
-                        p.setItemInHand(sugar);
-                        p.updateInventory();
-                        p.sendMessage("§cRoh... C'est fini ... :(");
+                    else{
+                        sugarCooldown.put(p, System.currentTimeMillis());
+                        if(item.getEnchantments().isEmpty()){
+                            e.setCancelled(true);
+                            p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 100000, 3));
+                            p.setItemInHand(sugarEnch);
+                            p.updateInventory();
+                            p.sendMessage("§aEt hop, une petite dose :)");
+                        }
+                        else if(item.getEnchantments().get(Enchantment.DURABILITY).equals(10)){
+                            e.setCancelled(true);
+                            p.removePotionEffect(PotionEffectType.SPEED);
+                            p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 120, 1));
+                            p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 50, 1));
+                            p.setItemInHand(sugar);
+                            p.updateInventory();
+                            p.sendMessage("§cRoh... C'est fini ... :(");
+                        } 
                     }
                 }
             }
