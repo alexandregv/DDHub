@@ -26,6 +26,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import fr.TriiNoxYs.DDHubs.Main;
+import fr.TriiNoxYs.DDHubs.utils.BungeeUtils;
 import fr.TriiNoxYs.DDHubs.utils.ChatUtils;
 import fr.TriiNoxYs.DDHubs.utils.VisibilityUtils;
 
@@ -197,78 +198,6 @@ public class Menus implements Listener{
     }
     
     @EventHandler
-    public void onInvClick(InventoryClickEvent e){
-        final Player p = (Player) e.getWhoClicked();
-        Inventory inv = e.getClickedInventory();
-        ItemStack item = e.getCurrentItem();
-        
-        if(inv == null) return;
-        
-        if(Main.bypassed.contains(p)){
-            if(!p.getGameMode().equals(GameMode.CREATIVE)){
-                e.setCancelled(true);
-                ChatUtils.sendBypassError(p);
-            }
-        }
-        else e.setCancelled(true);
-        
-        if(inv.getName().equals("§8§lParamètres")){
-            if(item.getType().equals(Material.INK_SACK)){
-                if(masking.contains(p)){
-                    inv.setItem(0, maskOFF);
-                    masking.remove(p);
-                    VisibilityUtils.showPlayers(p);
-                }
-                else{
-                    inv.setItem(0, maskON);
-                    masking.add(p);
-                    VisibilityUtils.maskPlayers(p);
-                }
-            }
-            
-
-            else if(item.getType().equals(Material.BOOK_AND_QUILL)){
-                inv.setItem(2, mpOFF);
-                noMP.add(p.getUniqueId());
-            }
-            else if(item.getType().equals(Material.BOOK)){
-                inv.setItem(2, mpON);
-                noMP.remove(p.getUniqueId());
-            }
-            
-            
-            else if(item.getType().equals(Material.MAP)){
-                inv.setItem(4, fiOFF);
-                noFI.add(p.getUniqueId());
-            }
-            else if(item.getType().equals(Material.PAPER)){
-                inv.setItem(4, fiON);
-                noFI.remove(p.getUniqueId());
-            }
-            
-            
-            else if(item.getType().equals(Material.SLIME_BALL)){
-                inv.setItem(6, piOFF);
-                noPI.add(p.getUniqueId());
-            }
-            else if(item.getType().equals(Material.FIREWORK_CHARGE)){
-                inv.setItem(6, piON);
-                noPI.remove(p.getUniqueId());
-            }
-            
-            
-            else if(item.getType().equals(Material.RECORD_9)){
-                inv.setItem(8, alOFF);
-                noAl.add(p.getUniqueId());
-            }
-            else if(item.getType().equals(Material.RECORD_11)){
-                inv.setItem(8, alON);
-                noAl.remove(p.getUniqueId());
-            }
-        }
-    }
-    
-    @EventHandler
     public void onRightClick(PlayerInteractEvent e){
         final Player p = e.getPlayer();
         Action action = e.getAction();
@@ -339,7 +268,7 @@ public class Menus implements Listener{
             if(item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lMon profil")){
                 e.setCancelled(true);
                 
-                Inventory invProfile = Bukkit.createInventory(null, 9, "§8§lParamètres");
+                Inventory invProfile = Bukkit.createInventory(null, 9, "§c§lMon profil");
                 
                 ItemStack head = new ItemStack(Material.SKULL_ITEM, 1, (short) SkullType.PLAYER.ordinal());
                 SkullMeta headMeta = (SkullMeta) head.getItemMeta();
@@ -359,19 +288,99 @@ public class Menus implements Listener{
             if(item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§f§lMenu principal")){
                 e.setCancelled(true);
                 
-                Inventory invProfile = Bukkit.createInventory(null, 27, "§8§lParamètres");
+                Inventory invPrinc = Bukkit.createInventory(null, 27, "§f§lMenu principal");
                 
                 for(int i = 9; i <= 17; i++)
-                    invProfile.setItem(i, bGlass); 
-                invProfile.setItem(2,  pvpbox);
-                invProfile.setItem(6,  adventure);
-                invProfile.setItem(18,  staff);
-                invProfile.setItem(20, jump);
-                invProfile.setItem(22, spawn);
-                invProfile.setItem(24, infos);
-                invProfile.setItem(26, egg);
+                    invPrinc.setItem(i, bGlass); 
+                invPrinc.setItem(2,  pvpbox);
+                invPrinc.setItem(6,  adventure);
+                invPrinc.setItem(18,  staff);
+                invPrinc.setItem(20, jump);
+                invPrinc.setItem(22, spawn);
+                invPrinc.setItem(24, infos);
+                invPrinc.setItem(26, egg);
                 
-                p.openInventory(invProfile);
+                p.openInventory(invPrinc);
+            }
+        }
+    }
+    
+    @EventHandler
+    public void onInvClick(InventoryClickEvent e){
+        final Player p = (Player) e.getWhoClicked();
+        Inventory inv = e.getClickedInventory();
+        ItemStack item = e.getCurrentItem();
+        
+        if(inv == null) return;
+        
+        if(Main.bypassed.contains(p)){
+            if(!p.getGameMode().equals(GameMode.CREATIVE)){
+                e.setCancelled(true);
+                ChatUtils.sendBypassError(p);
+            }
+        }
+        else e.setCancelled(true);
+        
+        if(inv.getName().equals("§8§lParamètres")){
+            if(item.getType().equals(Material.INK_SACK)){
+                if(masking.contains(p)){
+                    inv.setItem(0, maskOFF);
+                    masking.remove(p);
+                    VisibilityUtils.showPlayers(p);
+                }
+                else{
+                    inv.setItem(0, maskON);
+                    masking.add(p);
+                    VisibilityUtils.maskPlayers(p);
+                }
+            }
+            
+
+            else if(item.getType().equals(Material.BOOK_AND_QUILL)){
+                inv.setItem(2, mpOFF);
+                noMP.add(p.getUniqueId());
+            }
+            else if(item.getType().equals(Material.BOOK)){
+                inv.setItem(2, mpON);
+                noMP.remove(p.getUniqueId());
+            }
+            
+            
+            else if(item.getType().equals(Material.MAP)){
+                inv.setItem(4, fiOFF);
+                noFI.add(p.getUniqueId());
+            }
+            else if(item.getType().equals(Material.PAPER)){
+                inv.setItem(4, fiON);
+                noFI.remove(p.getUniqueId());
+            }
+            
+            
+            else if(item.getType().equals(Material.SLIME_BALL)){
+                inv.setItem(6, piOFF);
+                noPI.add(p.getUniqueId());
+            }
+            else if(item.getType().equals(Material.FIREWORK_CHARGE)){
+                inv.setItem(6, piON);
+                noPI.remove(p.getUniqueId());
+            }
+            
+            
+            else if(item.getType().equals(Material.RECORD_9)){
+                inv.setItem(8, alOFF);
+                noAl.add(p.getUniqueId());
+            }
+            else if(item.getType().equals(Material.RECORD_11)){
+                inv.setItem(8, alON);
+                noAl.remove(p.getUniqueId());
+            }
+        }
+        else if(inv.getName().equals("§f§lMenu principal")){
+            if(item.getType().equals(Material.DIAMOND_SWORD)){
+                BungeeUtils.send(p, "pvpbox");
+            }
+            else if(item.getType().equals(Material.IRON_SWORD)){
+                BungeeUtils.send(p, "adventure");
             }
         }
     }
