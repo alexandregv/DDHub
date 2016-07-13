@@ -20,9 +20,11 @@ import fr.TriiNoxYs.DDHubs.utils.InvUtils;
 
 public class JoinQuitEvents implements Listener{
     
+    FileConfiguration config;
+    
     @EventHandler
     public void onJoin(PlayerJoinEvent e){
-        FileConfiguration config = ConfigManager.getConfig();
+        config = ConfigManager.getConfig();
         final Player p = e.getPlayer();
         
         e.setJoinMessage("§7[§a+§7] §7" + p.getName());
