@@ -10,7 +10,7 @@ import fr.triinoxys.ddhub.Main;
 
 public class ChatUtils{
     
-    private static final String PREFIX = "§8[§4§lDD§6Hubs§8]§r ";
+    private static final String PREFIX = "§8[§4§lDD§6Hub§8]§r ";
     private static boolean muted = true;
 	
 	public static void broadcast(String msg){
