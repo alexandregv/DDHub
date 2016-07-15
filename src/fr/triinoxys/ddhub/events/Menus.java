@@ -7,6 +7,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
 import org.bukkit.enchantments.Enchantment;
@@ -26,7 +27,6 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import fr.triinoxys.ddhub.Main;
-import fr.triinoxys.ddhub.utils.BungeeUtils;
 import fr.triinoxys.ddhub.utils.ChatUtils;
 import fr.triinoxys.ddhub.utils.VisibilityUtils;
 
@@ -318,9 +318,9 @@ public class Menus implements Listener{
                 e.setCancelled(true);
                 ChatUtils.sendBypassError(p);
             }
+            Bukkit.broadcastMessage(inv.getName());
         }
         else e.setCancelled(true);
-        //if(e.getAction() == InventoryAction.HOTBAR_MOVE_AND_READD || e.getAction() == InventoryAction.HOTBAR_SWAP) e.setCancelled(true);
         
         if(inv.getName().equals("§8§lParamètres")){
             if(item.getType().equals(Material.INK_SACK)){
@@ -377,12 +377,12 @@ public class Menus implements Listener{
             }
         }
         else if(inv.getName().equals("§f§lMenu principal")){
-            if(item.getType().equals(Material.DIAMOND_SWORD)){
-                BungeeUtils.send(p, "pvpbox");
-            }
-            else if(item.getType().equals(Material.IRON_SWORD)){
-                BungeeUtils.send(p, "adventure");
-            }
+            if(item.getType().equals(Material.NETHER_STAR)) p.teleport(new Location(Bukkit.getWorld("hub"), 0.5, 120, 0.5, 180, 0));
+            else if(item.getType().equals(Material.FEATHER)) p.teleport(new Location(Bukkit.getWorld("hub"), -28.5, 141, -9.5, 135, 0));
+            else if(item.getType().equals(Material.DIAMOND_SWORD)) p.teleport(new Location(Bukkit.getWorld("hub"), -50.5, 120, -82.5, 90, 0));
+            else if(item.getType().equals(Material.IRON_SWORD)) p.teleport(new Location(Bukkit.getWorld("hub"), -43.5, 120, -105.5, 90, 0));
+            else if(item.getType().equals(Material.ARMOR_STAND)) p.teleport(new Location(Bukkit.getWorld("hub"), 50.5, 120, -40.5, -65, 0));
+            else if(item.getType().equals(Material.SIGN)) p.teleport(new Location(Bukkit.getWorld("hub"), 0.5, 120, -137.5, 180, 0));
         }
     }
     
