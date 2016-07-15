@@ -16,6 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import fr.triinoxys.ddhub.handlers.ConfigManager;
 import fr.triinoxys.ddhub.utils.InvUtils;
+import fr.triinoxys.ddhub.utils.TitleUtils;
 
 
 public class JoinQuitEvents implements Listener{
@@ -85,6 +86,8 @@ public class JoinQuitEvents implements Listener{
         else if(p.hasPermission("joinmsg.youtuber"))    e.setJoinMessage(YT          + p.getName() + SUFFIX);
         else if(p.hasPermission("joinmsg.supervip"))    e.setJoinMessage(SUPERVIP    + p.getName() + SUFFIX);
         else   e.setJoinMessage("§7[§a+§7] " + p.getName());
+        
+        TitleUtils.sendHeaderAndFooter(p, "§4§l>§6§l>§e§l> §b§lDragon District §e§l<§6§l<§4§l<", "     §aSite : http://dragondistrict.fr     ");
         
     }
     
