@@ -1,7 +1,7 @@
 name: DDHub
 author: TriiNoxYs
 version: 1.0
-main: fr.triinoxys.ddhub
+main: fr.triinoxys.ddhub.Main
 commands:
   chat:
     description: Activer ou desactiver le chat
@@ -17,3 +17,5 @@ commands:
     description: Recharger la config
   ping:
     description: Affiche votre ping ou celui d'un autre joueur
+  aide:
+    description: Affiche la liste des commandes

@@ -27,8 +27,6 @@ public class JoinQuitEvents implements Listener{
         config = ConfigManager.getConfig();
         final Player p = e.getPlayer();
         
-        e.setJoinMessage("§7[§a+§7] §7" + p.getName());
-        
         InvUtils.clearInv(p);
         
         ItemStack head = new ItemStack(Material.SKULL_ITEM, 1, (short) SkullType.PLAYER.ordinal());
@@ -53,6 +51,20 @@ public class JoinQuitEvents implements Listener{
                 config.getLong("spawn.pitch")));
         
         p.setGameMode(GameMode.ADVENTURE);
+        
+        if     (p.hasPermission("joinmsg.admin"))       e.setJoinMessage("§c[§4Administrateur§c] §4"      + p.getName() + "§e a rejoint le lobby !");
+        else if(p.hasPermission("joinmsg.operateur"))   e.setJoinMessage("§6[§cOpérateur§6] §c"           + p.getName() + "§e a rejoint le lobby !");
+        else if(p.hasPermission("joinmsg.moderateur"))  e.setJoinMessage("§e[§6Modérateur§e] §6"          + p.getName() + "§e a rejoint le lobby !");
+        else if(p.hasPermission("joinmsg.guide"))       e.setJoinMessage("§b[§3Guide§b] §3"               + p.getName() + "§e a rejoint le lobby !");
+        else if(p.hasPermission("joinmsg.respbuilder")) e.setJoinMessage("§e[§2Responsable Builder§e] §2" + p.getName() + "§e a rejoint le lobby !");
+        else if(p.hasPermission("joinmsg.builder"))     e.setJoinMessage("§e[§2Builder§e] §2"             + p.getName() + "§e a rejoint le lobby !");
+        else if(p.hasPermission("joinmsg.developpeur")) e.setJoinMessage("§e[§2Builder§e] §2"             + p.getName() + "§e a rejoint le lobby !");
+        else if(p.hasPermission("joinmsg.staff"))       e.setJoinMessage("§e[§aStaff§e] §a"               + p.getName() + "§e a rejoint le lobby !");
+        else if(p.hasPermission("joinmsg.dragon"))      e.setJoinMessage("§9[§1Dragon§9] §1"              + p.getName() + "§e a rejoint le lobby !");
+        else if(p.hasPermission("joinmsg.youtuber"))    e.setJoinMessage("§d[§5Youtuber§d] §5"            + p.getName() + "§e a rejoint le lobby !");
+        else if(p.hasPermission("joinmsg.supervip"))    e.setJoinMessage("§f[§bSuperVIP§f] §b"            + p.getName() + "§e a rejoint le lobby !");
+        else   e.setJoinMessage("§7[§&+§7] " + p.getName());
+        
     }
     
     @EventHandler
