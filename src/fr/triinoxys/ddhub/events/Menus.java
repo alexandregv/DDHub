@@ -1,4 +1,4 @@
-package fr.TriiNoxYs.DDHubs.events;
+package fr.triinoxys.ddhub.events;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,10 +25,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import fr.TriiNoxYs.DDHubs.Main;
-import fr.TriiNoxYs.DDHubs.utils.BungeeUtils;
-import fr.TriiNoxYs.DDHubs.utils.ChatUtils;
-import fr.TriiNoxYs.DDHubs.utils.VisibilityUtils;
+import fr.triinoxys.ddhub.Main;
+import fr.triinoxys.ddhub.utils.BungeeUtils;
+import fr.triinoxys.ddhub.utils.ChatUtils;
+import fr.triinoxys.ddhub.utils.VisibilityUtils;
 
 
 public class Menus implements Listener{

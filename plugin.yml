@@ -1,7 +1,7 @@
-name: DDHubs
+name: DDHub
 author: TriiNoxYs
 version: 1.0
-main: fr.TriiNoxYs.DDHubs.Main
+main: fr.triinoxys.ddhub
 commands:
   chat:
     description: Activer ou desactiver le chat

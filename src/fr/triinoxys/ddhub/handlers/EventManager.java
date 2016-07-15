@@ -1,17 +1,17 @@
-package fr.TriiNoxYs.DDHubs.handlers;
+package fr.triinoxys.ddhub.handlers;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
-import fr.TriiNoxYs.DDHubs.events.BuildEvent;
-import fr.TriiNoxYs.DDHubs.events.ChatEvent;
-import fr.TriiNoxYs.DDHubs.events.CommandPreprocessEvent;
-import fr.TriiNoxYs.DDHubs.events.DamageEvent;
-import fr.TriiNoxYs.DDHubs.events.FoodChangeEvent;
-import fr.TriiNoxYs.DDHubs.events.JoinQuitEvents;
-import fr.TriiNoxYs.DDHubs.events.Menus;
-import fr.TriiNoxYs.DDHubs.events.RespawnEvent;
-import fr.TriiNoxYs.DDHubs.events.WeatherEvent;
+import fr.triinoxys.ddhub.events.BuildEvent;
+import fr.triinoxys.ddhub.events.ChatEvent;
+import fr.triinoxys.ddhub.events.CommandPreprocessEvent;
+import fr.triinoxys.ddhub.events.DamageEvent;
+import fr.triinoxys.ddhub.events.FoodChangeEvent;
+import fr.triinoxys.ddhub.events.JoinQuitEvents;
+import fr.triinoxys.ddhub.events.Menus;
+import fr.triinoxys.ddhub.events.RespawnEvent;
+import fr.triinoxys.ddhub.events.WeatherEvent;
 
 
 public class EventManager{

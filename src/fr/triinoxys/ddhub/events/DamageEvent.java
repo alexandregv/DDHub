@@ -1,4 +1,4 @@
-package fr.TriiNoxYs.DDHubs.events;
+package fr.triinoxys.ddhub.events;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -8,7 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
-import fr.TriiNoxYs.DDHubs.handlers.ConfigManager;
+import fr.triinoxys.ddhub.handlers.ConfigManager;
 
 
 public class DamageEvent implements Listener{

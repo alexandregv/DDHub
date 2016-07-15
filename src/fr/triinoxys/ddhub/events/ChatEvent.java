@@ -1,11 +1,11 @@
-package fr.TriiNoxYs.DDHubs.events;
+package fr.triinoxys.ddhub.events;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import fr.TriiNoxYs.DDHubs.utils.ChatUtils;
+import fr.triinoxys.ddhub.utils.ChatUtils;
 
 
 public class ChatEvent implements Listener{

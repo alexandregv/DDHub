@@ -1,4 +1,4 @@
-package fr.TriiNoxYs.DDHubs.commands;
+package fr.triinoxys.ddhub.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -7,7 +7,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
-import fr.TriiNoxYs.DDHubs.utils.ChatUtils;
+import fr.triinoxys.ddhub.utils.ChatUtils;
 
 
 public class PingCmd implements CommandExecutor{

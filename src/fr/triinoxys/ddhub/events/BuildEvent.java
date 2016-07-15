@@ -1,4 +1,4 @@
-package fr.TriiNoxYs.DDHubs.events;
+package fr.triinoxys.ddhub.events;
 
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -6,8 +6,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import fr.TriiNoxYs.DDHubs.Main;
-import fr.TriiNoxYs.DDHubs.utils.ChatUtils;
+import fr.triinoxys.ddhub.Main;
+import fr.triinoxys.ddhub.utils.ChatUtils;
 
 
 public class BuildEvent implements Listener{

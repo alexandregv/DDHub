@@ -1,4 +1,4 @@
-package fr.TriiNoxYs.DDHubs.commands;
+package fr.triinoxys.ddhub.commands;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,8 +10,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import fr.TriiNoxYs.DDHubs.utils.ChatUtils;
-import fr.TriiNoxYs.DDHubs.utils.TitleUtils;
+import fr.triinoxys.ddhub.utils.ChatUtils;
+import fr.triinoxys.ddhub.utils.TitleUtils;
 
 
 public class ChatCmds implements CommandExecutor, TabCompleter{

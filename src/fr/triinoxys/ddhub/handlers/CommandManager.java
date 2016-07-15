@@ -1,11 +1,11 @@
-package fr.TriiNoxYs.DDHubs.handlers;
+package fr.triinoxys.ddhub.handlers;
 
 import org.bukkit.plugin.java.JavaPlugin;
-import fr.TriiNoxYs.DDHubs.commands.BypassCmd;
-import fr.TriiNoxYs.DDHubs.commands.ChatCmds;
-import fr.TriiNoxYs.DDHubs.commands.PingCmd;
-import fr.TriiNoxYs.DDHubs.commands.ReloadConfigCmd;
-import fr.TriiNoxYs.DDHubs.commands.SpawnCmds;
+import fr.triinoxys.ddhub.commands.BypassCmd;
+import fr.triinoxys.ddhub.commands.ChatCmds;
+import fr.triinoxys.ddhub.commands.PingCmd;
+import fr.triinoxys.ddhub.commands.ReloadConfigCmd;
+import fr.triinoxys.ddhub.commands.SpawnCmds;
 
 
 public class CommandManager{

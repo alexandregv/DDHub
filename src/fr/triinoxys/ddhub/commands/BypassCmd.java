@@ -1,4 +1,4 @@
-package fr.TriiNoxYs.DDHubs.commands;
+package fr.triinoxys.ddhub.commands;
 
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
 import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
@@ -8,7 +8,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
-import fr.TriiNoxYs.DDHubs.Main;
+import fr.triinoxys.ddhub.Main;
 
 
 public class BypassCmd implements CommandExecutor{

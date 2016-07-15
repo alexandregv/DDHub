@@ -1,4 +1,4 @@
-package fr.TriiNoxYs.DDHubs.events;
+package fr.triinoxys.ddhub.events;
 
 import org.bukkit.event.Listener;
 
