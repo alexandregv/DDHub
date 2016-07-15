@@ -318,7 +318,6 @@ public class Menus implements Listener{
                 e.setCancelled(true);
                 ChatUtils.sendBypassError(p);
             }
-            Bukkit.broadcastMessage(inv.getName());
         }
         else e.setCancelled(true);
         
