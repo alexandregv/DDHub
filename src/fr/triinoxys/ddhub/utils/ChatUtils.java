@@ -11,7 +11,7 @@ import fr.triinoxys.ddhub.Main;
 public class ChatUtils{
     
     private static final String PREFIX = "§8[§4§lDD§6Hub§8]§r ";
-    private static boolean muted = true;
+    private static boolean muted = false;
 	
 	public static void broadcast(String msg){
 		Bukkit.broadcastMessage(PREFIX + msg);
