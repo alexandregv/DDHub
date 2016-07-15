@@ -33,7 +33,7 @@ public class JoinQuitEvents implements Listener{
         GUIDE = config.getString("prefixes.guide");
         RESPBUILDER = config.getString("prefixes.respbuilder");
         BUILDER = config.getString("prefixes.builder");
-        DEV = config.getString("prefixes.dev");
+        DEV = config.getString("prefixes.developpeur");
         STAFF = config.getString("prefixes.staff");
         DRAGON = config.getString("prefixes.dragon");
         YT = config.getString("prefixes.youtuber");
