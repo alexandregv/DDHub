@@ -20,7 +20,28 @@ import fr.triinoxys.ddhub.utils.InvUtils;
 
 public class JoinQuitEvents implements Listener{
     
-    FileConfiguration config;
+    static FileConfiguration config;
+    
+    private static String ADMIN, OPERATEUR, MODO, GUIDE, RESPBUILDER, BUILDER, DEV, STAFF, DRAGON, YT, SUPERVIP, SUFFIX;
+    
+    public JoinQuitEvents(){
+        config = ConfigManager.getConfig();
+        
+        ADMIN = config.getString("prefixes.admin");
+        OPERATEUR = config.getString("prefixes.operateur");
+        MODO = config.getString("prefixes.modo");
+        GUIDE = config.getString("prefixes.guide");
+        RESPBUILDER = config.getString("prefixes.respbuilder");
+        BUILDER = config.getString("prefixes.builder");
+        DEV = config.getString("prefixes.dev");
+        STAFF = config.getString("prefixes.staff");
+        DRAGON = config.getString("prefixes.dragon");
+        YT = config.getString("prefixes.youtuber");
+        SUPERVIP = config.getString("prefixes.supervip");
+        SUFFIX = config.getString("suffix");
+    }
+    
+    
     
     @EventHandler
     public void onJoin(PlayerJoinEvent e){
@@ -52,18 +73,18 @@ public class JoinQuitEvents implements Listener{
         
         p.setGameMode(GameMode.ADVENTURE);
         
-        if     (p.hasPermission("joinmsg.admin"))       e.setJoinMessage("§c[§4Administrateur§c] §4"      + p.getName() + "§e a rejoint le lobby !");
-        else if(p.hasPermission("joinmsg.operateur"))   e.setJoinMessage("§6[§cOpérateur§6] §c"           + p.getName() + "§e a rejoint le lobby !");
-        else if(p.hasPermission("joinmsg.moderateur"))  e.setJoinMessage("§e[§6Modérateur§e] §6"          + p.getName() + "§e a rejoint le lobby !");
-        else if(p.hasPermission("joinmsg.guide"))       e.setJoinMessage("§b[§3Guide§b] §3"               + p.getName() + "§e a rejoint le lobby !");
-        else if(p.hasPermission("joinmsg.respbuilder")) e.setJoinMessage("§e[§2Responsable Builder§e] §2" + p.getName() + "§e a rejoint le lobby !");
-        else if(p.hasPermission("joinmsg.builder"))     e.setJoinMessage("§e[§2Builder§e] §2"             + p.getName() + "§e a rejoint le lobby !");
-        else if(p.hasPermission("joinmsg.developpeur")) e.setJoinMessage("§e[§2Builder§e] §2"             + p.getName() + "§e a rejoint le lobby !");
-        else if(p.hasPermission("joinmsg.staff"))       e.setJoinMessage("§e[§aStaff§e] §a"               + p.getName() + "§e a rejoint le lobby !");
-        else if(p.hasPermission("joinmsg.dragon"))      e.setJoinMessage("§9[§1Dragon§9] §1"              + p.getName() + "§e a rejoint le lobby !");
-        else if(p.hasPermission("joinmsg.youtuber"))    e.setJoinMessage("§d[§5Youtuber§d] §5"            + p.getName() + "§e a rejoint le lobby !");
-        else if(p.hasPermission("joinmsg.supervip"))    e.setJoinMessage("§f[§bSuperVIP§f] §b"            + p.getName() + "§e a rejoint le lobby !");
-        else   e.setJoinMessage("§7[§&+§7] " + p.getName());
+        if     (p.hasPermission("joinmsg.admin"))       e.setJoinMessage(ADMIN       + p.getName() + SUFFIX);
+        else if(p.hasPermission("joinmsg.operateur"))   e.setJoinMessage(OPERATEUR   + p.getName() + SUFFIX);
+        else if(p.hasPermission("joinmsg.moderateur"))  e.setJoinMessage(MODO        + p.getName() + SUFFIX);
+        else if(p.hasPermission("joinmsg.guide"))       e.setJoinMessage(GUIDE       + p.getName() + SUFFIX);
+        else if(p.hasPermission("joinmsg.respbuilder")) e.setJoinMessage(RESPBUILDER + p.getName() + SUFFIX);
+        else if(p.hasPermission("joinmsg.builder"))     e.setJoinMessage(BUILDER     + p.getName() + SUFFIX);
+        else if(p.hasPermission("joinmsg.developpeur")) e.setJoinMessage(DEV         + p.getName() + SUFFIX);
+        else if(p.hasPermission("joinmsg.staff"))       e.setJoinMessage(STAFF       + p.getName() + SUFFIX);
+        else if(p.hasPermission("joinmsg.dragon"))      e.setJoinMessage(DRAGON      + p.getName() + SUFFIX);
+        else if(p.hasPermission("joinmsg.youtuber"))    e.setJoinMessage(YT          + p.getName() + SUFFIX);
+        else if(p.hasPermission("joinmsg.supervip"))    e.setJoinMessage(SUPERVIP    + p.getName() + SUFFIX);
+        else   e.setJoinMessage("§7[§a+§7] " + p.getName());
         
     }
     

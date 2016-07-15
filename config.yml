@@ -5,3 +5,18 @@ spawn:
   z: 0
   yaw: 0
   pitch: 0
+
+prefixes:
+  admin: '§c[§4Administrateur§c] §4'
+  operateur: '§6[§cOpérateur§6] §c'
+  moderateur: '§e[§6Modérateur§e] §6'
+  guide: '§b[§3Guide§b] §3'
+  respbuilder: '§e[§2Responsable Builder§e] §2'
+  builder: '§e[§2Builder§e] §2'
+  developpeur: '§e[§2Builder§e] §2'
+  staff: '§e[§aStaff§e] §a'
+  dragon: '§9[§1Dragon§9] §1'
+  youtuber: '§d[§5Youtuber§d] §5'
+  supervip: '§f[§bSuperVIP§f] §b'
+
+suffix: '§e a rejoint le lobby !'
