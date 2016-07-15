@@ -87,7 +87,7 @@ public class JoinQuitEvents implements Listener{
         else if(p.hasPermission("joinmsg.supervip"))    e.setJoinMessage(SUPERVIP    + p.getName() + SUFFIX);
         else   e.setJoinMessage("§7[§a+§7] " + p.getName());
         
-        TitleUtils.sendHeaderAndFooter(p, "§4§l>§6§l>§e§l> §b§lDragon District §e§l<§6§l<§4§l<", "     §aSite: http://dragondistrict.fr     ");
+        TitleUtils.sendHeaderAndFooter(p, config.getString("tablist.header"), config.getString("tablist.footer"));
         
     }
     

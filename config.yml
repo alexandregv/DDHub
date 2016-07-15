@@ -5,18 +5,22 @@ spawn:
   z: 0
   yaw: 0
   pitch: 0
-
+#
 prefixes:
-  admin: '§c[§4Administrateur§c] §4'
-  operateur: '§6[§cOpérateur§6] §c'
-  moderateur: '§e[§6Modérateur§e] §6'
-  guide: '§b[§3Guide§b] §3'
-  respbuilder: '§e[§2Responsable Builder§e] §2'
-  builder: '§e[§2Builder§e] §2'
-  developpeur: '§7[§5Développeur§7] §2'
-  staff: '§e[§aStaff§e] §a'
-  dragon: '§9[§1Dragon§9] §1'
-  youtuber: '§d[§5Youtuber§d] §5'
-  supervip: '§f[§bSuperVIP§f] §b'
-
+  admin: '§7[§4Administrateur§7] §4'
+  operateur: '§7[§cOpérateur§7] §c'
+  moderateur: '§7[§6Modérateur§7] §6'
+  guide: '§7[§bGuide§7] §b'
+  respbuilder: '§7[§2Responsable Builders§7] §2'
+  builder: '§7[§aBuilder§e] §a'
+  developpeur: '§7[§5Développeur§7] §5'
+  staff: '§7[§dStaff§7] §d'
+  dragon: '§7[§1Dragon§7] §1'
+  youtuber: '§7[§9Youtuber§7] §9'
+  supervip: '§7[§3SuperVIP§7] §3'
+  #
 suffix: '§e a rejoint le lobby !'
+#
+tablist:
+  header: '§4§l>§6§l>§e§l> §b§lDragon District §e§l<§6§l<§4§l<'
+  footer: '     §aSite: http://dragondistrict.fr     '
