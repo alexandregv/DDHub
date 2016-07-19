@@ -14,6 +14,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.potion.PotionEffectType;
 import fr.triinoxys.ddhub.handlers.ConfigManager;
 import fr.triinoxys.ddhub.utils.InvUtils;
 import fr.triinoxys.ddhub.utils.TitleUtils;
@@ -94,6 +95,9 @@ public class JoinQuitEvents implements Listener{
     @EventHandler
     public void onQuit(PlayerQuitEvent e){
         final Player p = e.getPlayer();
+        
+        p.removePotionEffect(PotionEffectType.SPEED);
+        
         e.setQuitMessage("§7[§c-§7] " + p.getName());
     }
     
