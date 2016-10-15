@@ -26,8 +26,8 @@ public class BypassCmd implements CommandExecutor{
                     Main.bypassed.add(p);
                     p.sendMessage("§a§oBypass ON");
                     p.sendMessage("§cRappel: Vous devez être en créatif pour que le bypass soit actif.");
-                    IChatBaseComponent comp = ChatSerializer.a("[\"\",{\"text\":\"Cliquez ici pour passer en créatif.\",\"color\":\"red\",\"underlined\":true,\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/gamemode 1\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"\",\"extra\":[{\"text\":\"Cliquez pour passer en créatif\",\"color\":\"gray\"}]}}}]");
                     
+                    IChatBaseComponent comp = ChatSerializer.a("[\"\",{\"text\":\"Cliquez ici pour passer en créatif.\",\"color\":\"red\",\"underlined\":true,\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/gamemode 1\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"\",\"extra\":[{\"text\":\"Cliquez pour passer en créatif\",\"color\":\"gray\"}]}}}]");
                     PacketPlayOutChat packet = new PacketPlayOutChat(comp);
                     ((CraftPlayer) p).getHandle().playerConnection.sendPacket(packet);
                 }

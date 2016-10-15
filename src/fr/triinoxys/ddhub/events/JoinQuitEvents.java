@@ -29,18 +29,18 @@ public class JoinQuitEvents implements Listener{
     public JoinQuitEvents(){
         config = ConfigManager.getConfig();
         
-        ADMIN = config.getString("prefixes.admin");
-        OPERATEUR = config.getString("prefixes.operateur");
-        MODO = config.getString("prefixes.modo");
-        GUIDE = config.getString("prefixes.guide");
+        ADMIN       = config.getString("prefixes.admin");
+        OPERATEUR   = config.getString("prefixes.operateur");
+        MODO        = config.getString("prefixes.modo");
+        GUIDE       = config.getString("prefixes.guide");
         RESPBUILDER = config.getString("prefixes.respbuilder");
-        BUILDER = config.getString("prefixes.builder");
-        DEV = config.getString("prefixes.developpeur");
-        STAFF = config.getString("prefixes.staff");
-        DRAGON = config.getString("prefixes.dragon");
-        YT = config.getString("prefixes.youtuber");
-        SUPERVIP = config.getString("prefixes.supervip");
-        SUFFIX = config.getString("suffix");
+        BUILDER     = config.getString("prefixes.builder");
+        DEV         = config.getString("prefixes.developpeur");
+        STAFF       = config.getString("prefixes.staff");
+        DRAGON      = config.getString("prefixes.dragon");
+        YT          = config.getString("prefixes.youtuber");
+        SUPERVIP    = config.getString("prefixes.supervip");
+        SUFFIX      = config.getString("suffix");
     }
     
     
